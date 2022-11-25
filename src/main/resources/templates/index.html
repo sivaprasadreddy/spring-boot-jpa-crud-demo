@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Bookmarks</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/webjars/font-awesome/css/all.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+<main>
+    <header class="p-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <h4>Bookmarks</h4>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div id="app" class="container">
+        <div style="padding-bottom: 20px; padding-top: 40px;">
+            <div class="card">
+                <div class="card-header">
+                    <h3 >Add Bookmark Form</h3>
+                </div>
+                <div class="card-body">
+                    <form @submit.prevent="saveBookmark">
+                        <div class="mb-3">
+                            <label for="title" class="control-label">Title*</label>
+                            <input type="text" id="title" name="title"
+                                   v-model="newBookmark.title"
+                                   class="form-control" placeholder="Enter title" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="url" class="control-label">URL*</label>
+                            <input type="text" id="url" name="url"
+                                   v-model="newBookmark.url"
+                                   class="form-control" placeholder="Enter URL" />
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div>
+                <nav aria-label="Page navigation" v-if="bookmarks.totalPages > 1">
+                    <ul class="pagination pagination justify-content-center">
+                        <li class="page-item" :class="{ disabled: !bookmarks.hasPrevious }">
+                            <a class="page-link" href="#" @click="loadPage(1)">First</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: !bookmarks.hasPrevious }">
+                            <a class="page-link" href="#" @click="loadPage(bookmarks.pageNumber - 1)">Previous</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: !bookmarks.hasNext }">
+                            <a class="page-link" href="#" @click="loadPage(bookmarks.pageNumber + 1)">Next</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: !bookmarks.hasNext }">
+                            <a class="page-link" href="#" @click="loadPage(bookmarks.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <table class="table table-hover">
+                <tbody>
+                <tr v-for="bookmark in bookmarks.data">
+                    <td style="width: 90%">
+                        <a :href="bookmark.url" target="_blank">{{bookmark.title}}</a></td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                v-on:click="deleteBookmark(bookmark.id)"><i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<script src="/webjars/jquery/jquery.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/webjars/vue/vue.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
