@@ -1,5 +1,6 @@
 package com.sivalabs.bookmarks.adapter;
 
+import com.sivalabs.bookmarks.ApplicationProperties;
 import com.sivalabs.bookmarks.domain.Bookmark;
 import com.sivalabs.bookmarks.domain.BookmarkRepository;
 import com.sivalabs.bookmarks.domain.PagedResult;
@@ -16,9 +17,9 @@ import java.util.stream.StreamSupport;
 @Repository
 @RequiredArgsConstructor
 public class BookmarkRepositoryImpl implements BookmarkRepository {
-    private static final int PAGE_SIZE = 10;
     private final JpaBookmarkRepository repo;
     private final BookmarkMapper bookmarkMapper;
+    private final ApplicationProperties properties;
 
     @Override
     public PagedResult<Bookmark> findAll(int pageNo) {
@@ -55,6 +56,6 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     private Pageable getPageable(int pageNo) {
         int page = (pageNo > 0) ? pageNo - 1 : 0;
-        return PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return PageRequest.of(page, properties.pageSize(), Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 }
