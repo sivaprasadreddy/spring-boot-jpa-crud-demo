@@ -1,6 +1,7 @@
 package com.sivalabs.bookmarks.web;
 
 import com.sivalabs.bookmarks.domain.Bookmark;
+import com.sivalabs.bookmarks.domain.BookmarkNotFoundException;
 import com.sivalabs.bookmarks.domain.BookmarkService;
 import com.sivalabs.bookmarks.domain.PagedResult;
 import jakarta.validation.Valid;
@@ -26,7 +27,8 @@ public class BookmarkController {
     public ResponseEntity<Bookmark> getBookmarkById(@PathVariable Long id) {
         return service.getBookmarkById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                //.orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new BookmarkNotFoundException(id));
     }
 
     @PostMapping
