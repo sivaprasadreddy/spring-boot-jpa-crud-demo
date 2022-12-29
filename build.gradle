@@ -1,7 +1,9 @@
 plugins {
-	id 'org.springframework.boot' version '3.0.0'
-	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
+	id 'org.springframework.boot' version '3.0.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'org.hibernate.orm' version '6.1.6.Final'
+	id 'org.graalvm.buildtools.native' version '0.9.18'
 }
 
 group = 'com.sivalabs'
@@ -36,14 +38,14 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'com.h2database:h2'
 	implementation 'org.postgresql:postgresql'
-	implementation "org.webjars:webjars-locator:${webjarsLocatorVersion}"
+	//implementation "org.webjars:webjars-locator:${webjarsLocatorVersion}"
 	implementation "org.webjars:bootstrap:${bootstrapVersion}"
 	implementation "org.webjars:jquery:${jqueryVersion}"
 	implementation "org.webjars:font-awesome:${fontawesomeVersion}"
 	implementation "org.webjars:vue:${vueVersion}"
 
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -59,4 +61,16 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+hibernate {
+	enhancement {
+		lazyInitialization true
+		dirtyTracking true
+		associationManagement true
+	}
+}
+
+tasks.named("bootBuildImage") {
+	builder = "dashaun/builder:tiny"
 }
