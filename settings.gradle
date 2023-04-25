@@ -1,7 +1,11 @@
 pluginManagement {
     repositories {
         maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
         gradlePluginPortal()
     }
+}
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
 }
 rootProject.name = 'spring-boot-jpa-crud-demo'
