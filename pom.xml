@@ -198,6 +198,8 @@
 				<version>2.36.0</version>
 				<configuration>
 					<java>
+						<importOrder />
+						<removeUnusedImports />
 						<palantirJavaFormat>
 							<version>2.30.0</version>
 						</palantirJavaFormat>
