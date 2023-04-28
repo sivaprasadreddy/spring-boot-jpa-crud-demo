@@ -7,9 +7,4 @@ import org.springframework.validation.annotation.Validated;
 
 @ConfigurationProperties(prefix = "app")
 @Validated
-public record ApplicationProperties(
-        @Min(1)
-        @Max(100)
-        int pageSize
-) {
-}
+public record ApplicationProperties(@Min(1) @Max(100) int pageSize) {}

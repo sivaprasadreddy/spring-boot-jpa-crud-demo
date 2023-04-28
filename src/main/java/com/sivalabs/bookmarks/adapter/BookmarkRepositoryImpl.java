@@ -4,19 +4,19 @@ import com.sivalabs.bookmarks.ApplicationProperties;
 import com.sivalabs.bookmarks.domain.Bookmark;
 import com.sivalabs.bookmarks.domain.BookmarkRepository;
 import com.sivalabs.bookmarks.domain.PagedResult;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-
 @Repository
 @RequiredArgsConstructor
 public class BookmarkRepositoryImpl implements BookmarkRepository {
+
     private final JpaBookmarkRepository repo;
     private final BookmarkMapper bookmarkMapper;
     private final ApplicationProperties properties;
@@ -40,7 +40,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @Override
     public Iterable<Bookmark> saveAll(Iterable<Bookmark> bookmarks) {
-        List<BookmarkEntity> entities = StreamSupport.stream(bookmarks.spliterator(), false).map(bookmarkMapper::toEntity).toList();
+        List<BookmarkEntity> entities = StreamSupport.stream(bookmarks.spliterator(), false)
+                .map(bookmarkMapper::toEntity)
+                .toList();
         return repo.saveAll(entities).stream().map(bookmarkMapper::toModel).toList();
     }
 

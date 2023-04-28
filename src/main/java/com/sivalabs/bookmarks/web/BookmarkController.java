@@ -5,17 +5,17 @@ import com.sivalabs.bookmarks.domain.BookmarkNotFoundException;
 import com.sivalabs.bookmarks.domain.BookmarkService;
 import com.sivalabs.bookmarks.domain.PagedResult;
 import jakarta.validation.Valid;
+import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
-
 @RestController
 @RequestMapping("/api/bookmarks")
 @RequiredArgsConstructor
 public class BookmarkController {
+
     private final BookmarkService service;
 
     @GetMapping
@@ -27,7 +27,7 @@ public class BookmarkController {
     public ResponseEntity<Bookmark> getBookmarkById(@PathVariable Long id) {
         return service.getBookmarkById(id)
                 .map(ResponseEntity::ok)
-                //.orElseGet(() -> ResponseEntity.notFound().build());
+                // .orElseGet(() -> ResponseEntity.notFound().build());
                 .orElseThrow(() -> new BookmarkNotFoundException(id));
     }
 

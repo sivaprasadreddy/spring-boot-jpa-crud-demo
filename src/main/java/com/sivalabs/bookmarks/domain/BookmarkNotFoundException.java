@@ -3,10 +3,9 @@ package com.sivalabs.bookmarks.domain;
 public class BookmarkNotFoundException extends RuntimeException {
 
     public BookmarkNotFoundException(Long bookmarkId) {
-        super("Bookmark with id: "+ bookmarkId+" not found");
+        super("Bookmark with id: " + bookmarkId + " not found");
     }
 }
-
 /*
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

@@ -16,6 +16,6 @@ public class BookmarkMapper {
     }
 
     public Bookmark toModel(BookmarkEntity entity) {
-        return new Bookmark(entity.getId(),entity.getTitle(),entity.getUrl(),entity.getCreatedAt());
+        return new Bookmark(entity.getId(), entity.getTitle(), entity.getUrl(), entity.getCreatedAt());
     }
 }
